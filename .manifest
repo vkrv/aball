@@ -1,0 +1,7 @@
+{
+	"name": "aball",
+	"platforms": ["web"],
+	"apps": {"index": "index"},
+	"minify": false,
+	"web-prefix": true
+}
