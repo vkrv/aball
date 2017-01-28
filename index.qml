@@ -11,8 +11,8 @@ Item {
 		color: "#E91E63";
 		property int betaDur: 2000 - Math.abs(beta * 10);
 		property int gammaDur:  2000 - Math.abs(gamma * 10);
-		property real beta: context.system.beta;
-		property real gamma: context.system.gamma;
+		property real beta: context.orientation.beta;
+		property real gamma: context.orientation.gamma;
 
 		Behavior on x { Animation { duration: ball.betaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
 		Behavior on y { Animation { duration: ball.gammaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
@@ -22,10 +22,10 @@ Item {
 		visible: !ball.visible;
 		height: 100%; width: 100%;
 		fillMode: Image.PreserveAspectFit;
-		transform.rotateZ: context.system.beta;
+		transform.rotateZ: context.orientation.alpha;
 		source: "res/compass.svg";
 
-		Behavior on transform { Animation { duration: 2000; }}
+		Behavior on transform { Animation { duration: 2500; easing: "cubic-bezier(0.175, 0.885, 0.32, 1.275)"; }}
 	}
 	
 	Text {
@@ -44,6 +44,6 @@ Item {
 		anchors.horizontalCenter: parent.horizontalCenter;
 		anchors.bottom: parent.bottom;
 		color: "#626262";
-		text: "X: " + context.system.beta + "; Y: " + context.system.gamma + "; Z: " + context.system.alpha; 
+		text: "X: " + context.orientation.beta + "; Y: " + context.orientation.gamma + "; Z: " + context.orientation.alpha; 
 	}
 }
