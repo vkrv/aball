@@ -23,7 +23,7 @@ Item {
 		height: 90%; width: 90%;
 		x: 5%; y: 5%;
 		fillMode: Image.PreserveAspectFit;
-		transform.rotateZ: (context.orientation.alpha > 180) ? context.orientation.alpha;
+		transform.rotateZ: context.orientation.alpha;
 		source: "res/compass.svg";
 
 		Behavior on transform { Animation { duration: 4000; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
