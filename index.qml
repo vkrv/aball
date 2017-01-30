@@ -17,9 +17,11 @@ Item {
 		property real gamma: context.orientation.gamma + calGamma;
 		property DragMixin drag: DragMixin {}
 
+		onCompleted: { this.calBeta = 0; this.calGamma = 0;}
+
 		calibrate: {
 			this.calBeta = -context.orientation.beta;
-			this.calGamma = -context.orientation.calGamma;
+			this.calGamma = -context.orientation.gamma;
 			this.calibrated = true;
 		}
 
@@ -106,6 +108,6 @@ Item {
 		anchors.bottom: parent.bottom;
 		color: "#626262";
 		font.pixelSize: 14;
-		text: "<b>x:</b> " + Math.round(context.orientation.beta * 100)/100 + "; <b>y:</b> " + Math.round(context.orientation.gamma * 100)/100 + "; <b>z:</b> " + Math.round(context.orientation.alpha * 100)/100 + (ball.calibrated ? "(calibrated x: " + Math.round(ball.beta * 100)/100 + " y: " + Math.round(ball.gamma * 100)/100 : ""); 
+		text: "<b>x:</b> " + Math.round(context.orientation.beta * 100)/100 + "; <b>y:</b> " + Math.round(context.orientation.gamma * 100)/100 + "; <b>z:</b> " + Math.round(context.orientation.alpha * 100)/100 + (ball.calibrated ? "(calibrated x: " + Math.round(ball.beta * 100)/100 + " y: " + Math.round(ball.gamma * 100)/100 + ")" : ""); 
 	}
 }
