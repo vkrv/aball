@@ -9,11 +9,11 @@ Item {
 		x: gamma < -1 ? 0 : (gamma > 1 ? 100% - width : (100% - width) / 2 );
 		y: beta < -1 ? 0 : (beta > 1 ? 100% - height : (100% - height) / 2 );
 		color: "#E91E63";
-		property int betaDur: 2000 - Math.abs(beta * 10);
-		property int gammaDur:  2000 - Math.abs(gamma * 10);
+		property int betaDur: drag.pressed ? 0 : 2000 - Math.abs(beta * 10);
+		property int gammaDur: drag.pressed ? 0 : 2000 - Math.abs(gamma * 10);
 		property real beta: context.orientation.beta;
 		property real gamma: context.orientation.gamma;
-		DragMixin {}
+		property DragMixin drag: DragMixin {}
 
 		Behavior on x { Animation { duration: ball.betaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
 		Behavior on y { Animation { duration: ball.gammaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
@@ -28,8 +28,8 @@ Item {
 		source: "res/compass.svg";
 
 		transform.rotateZ: context.orientation.alpha;
-		transform.rotateY: context.orientation.beta / 10;
-		transform.rotateX: context.orientation.gamma / 10;
+		transform.rotateY: context.orientation.gamma / 3;
+		transform.rotateX: context.orientation.beta / 3;
 		effects.shadow.y: transform.rotateY;
 		effects.shadow.x: transform.rotateX;
 		effects.shadow.color: "#000A"; 
