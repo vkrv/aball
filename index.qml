@@ -24,17 +24,24 @@ Item {
 		height: Math.min(parent.width, parent.height) * 0.9; width: height;
 		x: (parent.width - width) / 2; y: (parent.height - height) / 2;
 		radius: height / 2;
-		fillMode: Image.PreserveAspectFit;
-		source: "res/compass.svg";
 
-		transform.rotateZ: context.orientation.alpha;
-		transform.rotateY: context.orientation.gamma / 3;
-		transform.rotateX: context.orientation.beta / 3;
+		transform.rotateY: context.orientation.beta / 3;
+		transform.rotateX: context.orientation.gamma / 3;
 		effects.shadow.y: transform.rotateY;
 		effects.shadow.x: transform.rotateX;
 		effects.shadow.color: "#000A"; 
-		effects.shadow.blur: 5; 
+		effects.shadow.blur: 45; 
 		effects.shadow.spread: 1;
+
+		Image {
+			height: 100%; width: 100%;
+			radius: height / 2;
+			fillMode: Image.PreserveAspectFit;
+			source: "res/compass.svg";
+			transform.rotateZ: context.orientation.alpha;
+
+			Behavior on transform { Animation { duration: 2000; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
+		}
 
 		Behavior on transform { Animation { duration: 2000; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
 	}
