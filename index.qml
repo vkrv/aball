@@ -13,6 +13,7 @@ Item {
 		property int gammaDur:  2000 - Math.abs(gamma * 10);
 		property real beta: context.orientation.beta;
 		property real gamma: context.orientation.gamma;
+		DragMixin {}
 
 		Behavior on x { Animation { duration: ball.betaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
 		Behavior on y { Animation { duration: ball.gammaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
@@ -20,13 +21,22 @@ Item {
 
 	Image {
 		visible: !ball.visible;
-		height: 90%; width: 90%;
-		x: 5%; y: 5%;
+		height: Math.min(parent.width, parent.height) * 0.9; width: height;
+		x: (parent.width - width) / 2; y: (parent.height - height) / 2;
+		radius: height / 2;
 		fillMode: Image.PreserveAspectFit;
-		transform.rotateZ: context.orientation.alpha;
 		source: "res/compass.svg";
 
-		Behavior on transform { Animation { duration: 4000; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
+		transform.rotateZ: context.orientation.alpha;
+		transform.rotateY: context.orientation.beta / 10;
+		transform.rotateX: context.orientation.gamma / 10;
+		effects.shadow.y: transform.rotateY;
+		effects.shadow.x: transform.rotateX;
+		effects.shadow.color: "#000A"; 
+		effects.shadow.blur: 5; 
+		effects.shadow.spread: 1;
+
+		Behavior on transform { Animation { duration: 2000; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
 	}
 
 	Row {
@@ -40,7 +50,7 @@ Item {
 			width: 40; height: 40;
 			radius: 20;
 			color: "#E91E63";
-			opacity: ball.visible ? 0.4 : 1;
+			opacity: ball.visible ? 0.3 : 1;
 			HoverMixin { cursor: ball.visible ? "default" : "pointer"; }
 			onClicked: { ball.visible = true; }
 		}
@@ -48,7 +58,7 @@ Item {
 		Image {
 			width: 40; height: 40;
 			source: "res/compass_icon.svg";
-			opacity: !ball.visible ? 0.4 : 1;
+			opacity: !ball.visible ? 0.3 : 1;
 
 			HoverMixin { cursor: !ball.visible ? "default" : "pointer"; }
 			onClicked: { ball.visible = false; }
