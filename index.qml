@@ -11,9 +11,17 @@ Item {
 		color: "#E91E63";
 		property int betaDur: drag.pressed ? 0 : 2000 - Math.abs(beta * 10);
 		property int gammaDur: drag.pressed ? 0 : 2000 - Math.abs(gamma * 10);
-		property real beta: context.orientation.beta;
-		property real gamma: context.orientation.gamma;
+		property bool calibrated;
+		property real calBeta, calGamma;
+		property real beta: context.orientation.beta + calBeta;
+		property real gamma: context.orientation.gamma + calGamma;
 		property DragMixin drag: DragMixin {}
+
+		calibrate: {
+			this.calBeta = context.orientation.beta;
+			this.calGamma = context.orientation.calGamma;
+			this.calibrated = true;
+		}
 
 		Behavior on x { Animation { duration: ball.betaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
 		Behavior on y { Animation { duration: ball.gammaDur; easing: "cubic-bezier(0.55, 0.055, 0.675, 0.19)"; }}
@@ -53,6 +61,17 @@ Item {
 		anchors.right: parent.right;
 		anchors.rightMargin: 10;
 
+		Text {
+			height: 40;
+			verticalAlignment: Text.AlignVCenter;
+			color: "#626262";
+			text: "calibrate";
+			font.underline: true;
+			visible: ball.visible;
+			HoverMixin { cursor: "pointer"; }
+			onClicked: { ball.calibrate() }
+		}
+
 		Rectangle {
 			width: 40; height: 40;
 			radius: 20;
@@ -87,6 +106,6 @@ Item {
 		anchors.bottom: parent.bottom;
 		color: "#626262";
 		font.pixelSize: 14;
-		text: "<b>x:</b> " + Math.round(context.orientation.beta * 100)/100 + "; <b>y:</b> " + Math.round(context.orientation.gamma * 100)/100 + "; <b>z:</b> " + Math.round(context.orientation.alpha * 100)/100; 
+		text: "<b>x:</b> " + Math.round(context.orientation.beta * 100)/100 + "; <b>y:</b> " + Math.round(context.orientation.gamma * 100)/100 + "; <b>z:</b> " + Math.round(context.orientation.alpha * 100)/100 + (ball.calibrated ? "(calibrated x: " + ball.calBeta + " y: " + ball.calGamma : ""); 
 	}
 }
