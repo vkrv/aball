@@ -6,8 +6,8 @@ Item {
 		id: ball;
 		width: 100; height: 100;
 		radius: 50;
-		x: gamma > 0 ? 0 : (gamma < 0 ? 100% - width : (100% - width) / 2 );
-		y: beta > 0 ? 0 : (beta < 0 ? 100% - height : (100% - height) / 2 );
+		x: gamma < -1 ? 0 : (gamma > 1 ? 100% - width : (100% - width) / 2 );
+		y: beta < -1 ? 0 : (beta > 1 ? 100% - height : (100% - height) / 2 );
 		color: "#E91E63";
 		property int betaDur: 2000 - Math.abs(beta * 10);
 		property int gammaDur:  2000 - Math.abs(gamma * 10);
@@ -23,10 +23,10 @@ Item {
 		height: 90%; width: 90%;
 		x: 5%; y: 5%;
 		fillMode: Image.PreserveAspectFit;
-		transform.rotateZ: context.orientation.alpha;
+		transform.rotateZ: (context.orientation.alpha > 180) ? context.orientation.alpha;
 		source: "res/compass.svg";
 
-		Behavior on transform { Animation { duration: 2500; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
+		Behavior on transform { Animation { duration: 4000; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
 	}
 
 	Row {
