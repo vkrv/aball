@@ -6,8 +6,8 @@ Item {
 		id: ball;
 		width: 100; height: 100;
 		radius: 50;
-		x: beta > 0 ? 0 : (beta < 0 ? 100% - width : (100% - width) / 2 );
-		y: gamma > 0 ? 0 : (gamma < 0 ? 100% - height : (100% - height) / 2 );
+		x: gamma > 0 ? 0 : (gamma < 0 ? 100% - width : (100% - width) / 2 );
+		y: beta > 0 ? 0 : (beta < 0 ? 100% - height : (100% - height) / 2 );
 		color: "#E91E63";
 		property int betaDur: 2000 - Math.abs(beta * 10);
 		property int gammaDur:  2000 - Math.abs(gamma * 10);
@@ -69,6 +69,7 @@ Item {
 	Text { 
 		anchors.bottom: parent.bottom;
 		color: "#626262";
-		text: "X: " + Math.round(context.orientation.beta * 100)/100 + "; Y: " + Math.round(context.orientation.gamma * 100)/100 + "; Z: " + Math.round(context.orientation.alpha * 100)/100; 
+		font.pixelSize: 14;
+		text: "<b>x:</b> " + Math.round(context.orientation.beta * 100)/100 + "; <b>y:</b> " + Math.round(context.orientation.gamma * 100)/100 + "; <b>z:</b> " + Math.round(context.orientation.alpha * 100)/100; 
 	}
 }
