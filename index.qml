@@ -20,30 +20,55 @@ Item {
 
 	Image {
 		visible: !ball.visible;
-		height: 100%; width: 100%;
+		height: 90%; width: 90%;
+		x: 5%; y: 5%;
 		fillMode: Image.PreserveAspectFit;
 		transform.rotateZ: context.orientation.alpha;
 		source: "res/compass.svg";
 
-		Behavior on transform { Animation { duration: 2500; easing: "cubic-bezier(0.175, 0.885, 0.32, 1.275)"; }}
+		Behavior on transform { Animation { duration: 2500; easing: "cubic-bezier(0.805, 1.505, 0.780, 0.930)"; }}
 	}
-	
-	Text {
-		width: 100%; height: 30;
-		horizontalAlignment: Text.AlignHCenter;
-		text: ball.visible ? "Compass" : "Ball";
-		color: "#444444";
-		HoverMixin { cursor: "pointer"; }
 
-		onClicked: {
-			ball.visible = !ball.visible
+	Row {
+		height: 40;
+		spacing: 12;
+		y: 10;
+		anchors.right: parent.right;
+		anchors.rightMargin: 10;
+
+		Rectangle {
+			width: 40; height: 40;
+			radius: 20;
+			color: "#E91E63";
+			opacity: ball.visible ? 0.4 : 1;
+			HoverMixin { cursor: ball.visible ? "default" : "pointer"; }
+			onClicked: { ball.visible = true; }
+		}
+
+		Image {
+			width: 40; height: 40;
+			source: "res/compass_icon.svg";
+			opacity: !ball.visible ? 0.4 : 1;
+
+			HoverMixin { cursor: !ball.visible ? "default" : "pointer"; }
+			onClicked: { ball.visible = false; }
+		}
+
+		MaterialIcon {
+			width: 40; height: 40;
+			icon: context.fullscreen ? "fullscreen_exit" : "fullscreen";
+			color: "#9C27B0";
+			size: 40;
+
+			HoverMixin { cursor: "pointer"; }
+			onClicked: { context.fullscreen = !context.fullscreen }
 		}
 	}
+	
 
 	Text { 
-		anchors.horizontalCenter: parent.horizontalCenter;
 		anchors.bottom: parent.bottom;
 		color: "#626262";
-		text: "X: " + context.orientation.beta + "; Y: " + context.orientation.gamma + "; Z: " + context.orientation.alpha; 
+		text: "X: " + Math.round(context.orientation.beta * 100)/100 + "; Y: " + Math.round(context.orientation.gamma * 100)/100 + "; Z: " + Math.round(context.orientation.alpha * 100)/100; 
 	}
 }
